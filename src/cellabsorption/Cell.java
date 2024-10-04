@@ -4,7 +4,6 @@ import edu.macalester.graphics.CanvasWindow;
 import edu.macalester.graphics.Ellipse;
 import edu.macalester.graphics.Point;
 
-import java.util.Random;
 import java.awt.Color;
 
 public class Cell{
@@ -13,7 +12,6 @@ public class Cell{
         WANDER_FROM_CENTER = 60000;
     
     private CanvasWindow canvas;
-    private Random rand = new Random();
     private Ellipse shape;
     private double radius;
     private double direction;
@@ -22,21 +20,15 @@ public class Cell{
         this.canvas = canvas;
     }
     
-    public void populateCells() {
-        double size = rand.nextInt(5) + 2;
-        createCell(
-            rand.nextDouble() * (canvas.getWidth() - size),
-            rand.nextDouble() * (canvas.getWidth() - size),
-            size,
-            Color.getHSBColor(rand.nextFloat(), rand.nextFloat() * 0.5f + 0.1f, 1));
-        canvas.add(shape);
-    }
-    
     public void createCell(double x, double y, double radius, Color color) {
         shape = new Ellipse(x, y, radius * 2, radius * 2);
         shape.setFillColor(color);
         this.radius = radius;
         direction = normalizeRadians(Math.random() * Math.PI * 2);
+    }
+
+    public Ellipse getShape(){
+        return this.shape;
     }
 
     public void grow(double amount) {
